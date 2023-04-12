@@ -44,8 +44,16 @@ const setB = [
   },
 ];
 
-const mappedA = setA;
-const mappedB = setB;
+const mappedA = validation(setA);
+const mappedB = validation(setB);
+
+function validation(set) {
+  let invalidSet = set.filter((item) => item.memValue < 0 || item.memValue > 1);
+  if (invalidSet.length != 0) {
+    throw new Error("Fuzzy set mem value must be between 0 and 1");
+  }
+  return set;
+}
 
 const unionResult = set(mappedA).union(mappedB);
 console.log(`Result of union of A and B = `);
